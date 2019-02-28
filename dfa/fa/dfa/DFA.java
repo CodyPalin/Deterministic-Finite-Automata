@@ -1,12 +1,13 @@
 package fa.dfa;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 import fa.State;
 
 public class DFA implements DFAInterface {
 	private DFAState startState;
-	private DFAState[] finalStates;
+	private ArrayList<DFAState> finalStates;
 	
 	@Override
 	public void addStartState(String name) {
