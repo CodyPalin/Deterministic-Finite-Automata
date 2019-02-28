@@ -5,11 +5,12 @@ import java.util.Set;
 import fa.State;
 
 public class DFA implements DFAInterface {
-
+	private DFAState startState;
+	private DFAState[] finalStates;
+	
 	@Override
 	public void addStartState(String name) {
-		// TODO Auto-generated method stub
-
+		this.startState = new DFAState(name);		
 	}
 
 	@Override
@@ -55,7 +56,7 @@ public class DFA implements DFAInterface {
 	}
 
 	@Override
-	public boolean accepts(String s) {
+	public boolean accepts(String s) { //TODO: Important Method
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -64,6 +65,19 @@ public class DFA implements DFAInterface {
 	public State getToState(DFAState from, char onSymb) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public String toString(){
+		String retVal = new String();
+		
+		//Q = {} //set of all states
+		//Sigma = {} //Alphabet
+		//Delta = //Transition functions
+		//q0 = //startState
+		//f = {} //final states
+		
+		return retVal;
 	}
 
 }
