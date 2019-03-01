@@ -8,6 +8,8 @@ import fa.State;
 public class DFA implements DFAInterface {
 	private DFAState startState;
 	private ArrayList<DFAState> finalStates;
+	private ArrayList<DFAState> states; // non initial, non final states
+	private ArrayList<Character> alphabet;
 	
 	@Override
 	public void addStartState(String name) {
@@ -16,20 +18,44 @@ public class DFA implements DFAInterface {
 
 	@Override
 	public void addState(String name) {
-		// TODO Auto-generated method stub
+		DFAState x = new DFAState(name);
+		states.add(x);
 
 	}
 
 	@Override
 	public void addFinalState(String name) {
-		// TODO Auto-generated method stub
+		DFAState x = new DFAState(name);
+		finalStates.add(x);
 
 	}
-
+	private DFAState findState(String state)
+	{
+		int i;
+			for(i=0; i<states.size(); i++){
+				if(state.toString().equals(states.get(i).toString()))
+				{
+					return states.get(i);
+				}
+			}
+			for(i=0;i<finalStates.size(); i++){
+				if(state.toString().equals(finalStates.get(i).toString()))
+				{
+					return finalStates.get(i);
+				}
+			}
+			if(state.toString().equals(startState.toString()))
+			{
+				return finalStates.get(i);
+			}
+		return null;
+		
+	}
 	@Override
-	public void addTransition(String fromState, char onSymb, String toState) {
-		// TODO Auto-generated method stub
-
+	public void addTransition(String fromState, char onSymb, String toState) 
+	{
+		alphabet.add(onSymb);
+		findState(fromState).addTransition(onSymb, findState(toState));
 	}
 
 	@Override
@@ -46,8 +72,7 @@ public class DFA implements DFAInterface {
 
 	@Override
 	public State getStartState() {
-		// TODO Auto-generated method stub
-		return null;
+		return startState;
 	}
 
 	@Override
@@ -64,7 +89,8 @@ public class DFA implements DFAInterface {
 
 	@Override
 	public State getToState(DFAState from, char onSymb) {
-		// TODO Auto-generated method stub
+		if(alphabet.contains(onSymb))
+			return from.doTransition(onSymb);
 		return null;
 	}
 	
