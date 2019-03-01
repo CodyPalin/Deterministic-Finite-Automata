@@ -1,3 +1,4 @@
+package fa.dfa;
 import fa.State;
 
 /**
@@ -7,7 +8,7 @@ import fa.State;
  */
 public class DFAState extends State {
 private int a;//next element in array
-private String[] transitions;
+private char[] transitions;
 private DFAState[] states;
 	/**
 	 * Constructor for a DFAState, specifically to get the name
@@ -16,20 +17,20 @@ private DFAState[] states;
 	public DFAState(String name){
 		this.name = name;
 		a=0;
-		transitions = new String[8];
-		states = new DFAState[8];
+		transitions = new char[16];
+		states = new DFAState[16];
 	}
 	
 	/**
 	 * @param transition transition character to add to machine
 	 * @param state state to add that corresponds with the transition provided
 	 */
-	public void addTransition(String transition, DFAState state) {
+	public void addTransition(char onSymb, DFAState state) {
 		/*
 		if(a+1 > transitions.length) {
 		}//change size of array when too large
 		*/
-		transitions[a]= transition;
+		transitions[a]= onSymb;
 		states[a]= state;
 		a++;
 	}
