@@ -82,8 +82,19 @@ public class DFA implements DFAInterface {
 	}
 
 	@Override
-	public boolean accepts(String s) { //TODO: Important Method
-		// TODO Auto-generated method stub
+	public boolean accepts(String s) { //Important Method
+		DFAState currentState = startState;
+		for(int i = 0;i< s.length(); i++)
+		{
+			if(currentState == null)
+				return false;
+			if(!alphabet.contains(s.charAt(i)))
+				return false;
+			currentState = currentState.doTransition(s.charAt(i));
+		}
+		if(finalStates.contains(currentState))
+			return true;
+		
 		return false;
 	}
 
