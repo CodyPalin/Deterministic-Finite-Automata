@@ -40,9 +40,9 @@ private DFAState[] states;
 	 * @return returns null if transition string not found, otherwise
 	 * returns the DFA state achieved by getting to that transition
 	 */
-	public DFAState doTransition(String transition) {
+	public DFAState doTransition(char transition) {
 		for(int i = 0;i<a;i++) {
-			if(transition.equals(transitions[i])) {
+			if(transition == transitions[i]) {
 				return states[i];
 			}
 		}
