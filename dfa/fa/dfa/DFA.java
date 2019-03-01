@@ -7,9 +7,9 @@ import fa.State;
 
 public class DFA implements DFAInterface {
 	private DFAState startState;
-	private ArrayList<DFAState> finalStates;
-	private ArrayList<DFAState> states; // non initial, non final states
-	private ArrayList<Character> alphabet;
+	private ArrayList<DFAState> finalStates = new ArrayList<DFAState>();
+	private ArrayList<DFAState> states = new ArrayList<DFAState>(); // non initial, non final states
+	private ArrayList<Character> alphabet = new ArrayList<Character>();
 	
 	@Override
 	public void addStartState(String name) {
@@ -29,6 +29,8 @@ public class DFA implements DFAInterface {
 		finalStates.add(x);
 
 	}
+	
+
 	private DFAState findState(String state)
 	{
 		int i;
