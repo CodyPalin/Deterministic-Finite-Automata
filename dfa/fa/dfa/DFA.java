@@ -46,7 +46,7 @@ public class DFA implements DFAInterface {
 			}
 			if(state.toString().equals(startState.toString()))
 			{
-				return finalStates.get(i);
+				return startState;
 			}
 		return null;
 		
