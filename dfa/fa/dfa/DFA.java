@@ -110,12 +110,11 @@ public class DFA implements DFAInterface {
 	@Override
 	public String toString(){
 		String retVal = new String();
-		
-		//Q = {} //set of all states
-		//Sigma = {} //Alphabet
-		//Delta = //Transition functions
-		//q0 = //startState
-		//f = {} //final states
+		System.out.println("Q = " + states.toString()); //set of all states
+		System.out.println("Sigma = " + alphabet.toString()); //Alphabet
+		System.out.println("Delta = " + ""); //Transition functions
+		System.out.println("q0 = " + startState.toString()); //startState
+		System.out.println("F = " + finalStates.toString());//final states
 		
 		return retVal;
 	}
