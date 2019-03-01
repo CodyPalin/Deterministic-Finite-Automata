@@ -6,7 +6,7 @@ import fa.State;
  * @author Cody Palin, Dominick Edmonds
  */
 public class DFAState extends State {
-private int a = 0;//next element in array
+private int a;//next element in array
 private String[] transitions;
 private DFAState[] states;
 	/**
@@ -15,10 +15,15 @@ private DFAState[] states;
 	 */
 	public DFAState(String name){
 		this.name = name;
+		a=0;
 		transitions = new String[8];
 		states = new DFAState[8];
 	}
 	
+	/**
+	 * @param transition transition character to add to machine
+	 * @param state state to add that corresponds with the transition provided
+	 */
 	public void addTransition(String transition, DFAState state) {
 		/*
 		if(a+1 > transitions.length) {
