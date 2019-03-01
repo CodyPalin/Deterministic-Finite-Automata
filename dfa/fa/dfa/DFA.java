@@ -64,6 +64,18 @@ public class DFA implements DFAInterface {
 	@Override
 	public Set<DFAState> getStates() {
 		TreeSet<DFAState> retVal = new TreeSet<DFAState>(this.states);	 //TODO Better way to do this would be to change this.states to a set; but that messes with findState(), since you can't index a set
+		if(startState != null && finalStates != null){
+			if(finalStates.contains(startState))
+				retVal.addAll(finalStates);
+			else{
+				retVal.addAll(finalStates);
+				retVal.add(startState);
+			}
+		} 
+		else if(startState != null && finalStates == null)
+		{
+			retVal.add(startState);
+		}
 		return retVal;
 	}
 
