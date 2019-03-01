@@ -2,6 +2,7 @@ package fa.dfa;
 
 import java.util.ArrayList;
 import java.util.Set;
+import java.util.TreeSet;
 
 import fa.State;
 
@@ -9,7 +10,7 @@ public class DFA implements DFAInterface {
 	private DFAState startState;
 	private ArrayList<DFAState> finalStates = new ArrayList<DFAState>();
 	private ArrayList<DFAState> states = new ArrayList<DFAState>(); // non initial, non final states
-	private ArrayList<Character> alphabet = new ArrayList<Character>();
+	private Set<Character> alphabet = new TreeSet<Character>();
 	
 	@Override
 	public void addStartState(String name) {
@@ -61,15 +62,15 @@ public class DFA implements DFAInterface {
 	}
 
 	@Override
-	public Set<? extends State> getStates() {
-		// TODO Auto-generated method stub
-		return null;
+	public Set<DFAState> getStates() {
+		TreeSet<DFAState> retVal = new TreeSet<DFAState>(this.states);	 //TODO Better way to do this would be to change this.states to a set; but that messes with findState(), since you can't index a set
+		return retVal;
 	}
 
 	@Override
-	public Set<? extends State> getFinalStates() {
-		// TODO Auto-generated method stub
-		return null;
+	public Set<DFAState> getFinalStates() {
+		TreeSet<DFAState> retVal = new TreeSet<DFAState>(this.finalStates);
+		return retVal;
 	}
 
 	@Override
@@ -79,8 +80,7 @@ public class DFA implements DFAInterface {
 
 	@Override
 	public Set<Character> getABC() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.alphabet;
 	}
 
 	@Override
@@ -110,11 +110,11 @@ public class DFA implements DFAInterface {
 	@Override
 	public String toString(){
 		String retVal = new String();
-		System.out.println("Q = " + states.toString()); //set of all states
-		System.out.println("Sigma = " + alphabet.toString()); //Alphabet
-		System.out.println("Delta = " + ""); //Transition functions
-		System.out.println("q0 = " + startState.toString()); //startState
-		System.out.println("F = " + finalStates.toString());//final states
+		System.out.println("Q = " + getStates()); //set of all states
+		System.out.println("Sigma = " + getABC()); //Alphabet
+		System.out.println("Delta = " + ""); //Transition functions TODO: How to do this?
+		System.out.println("q0 = " + startState.toString()); //startState 
+		System.out.println("F = " + finalStates.toString());//final states TODO
 		
 		return retVal;
 	}
