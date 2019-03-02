@@ -1,8 +1,8 @@
 package fa.dfa;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeSet;
 
 import fa.State;
 
@@ -10,7 +10,7 @@ public class DFA implements DFAInterface {
 	private DFAState startState;
 	private ArrayList<DFAState> finalStates = new ArrayList<DFAState>();
 	private ArrayList<DFAState> states = new ArrayList<DFAState>(); // non initial, non final states
-	private Set<Character> alphabet = new TreeSet<Character>();
+	private Set<Character> alphabet = new HashSet<Character>();
 	
 	@Override
 	public void addStartState(String name) {
@@ -63,12 +63,16 @@ public class DFA implements DFAInterface {
 
 	@Override
 	public Set<DFAState> getStates() {
-		TreeSet<DFAState> retVal = new TreeSet<DFAState>(this.states);	 //TODO Better way to do this would be to change this.states to a set; but that messes with findState(), since you can't index a set
+		HashSet<DFAState> retVal = new HashSet<DFAState>(this.states);	 //TODO Better way to do this would be to change this.states to a set; but that messes with findState(), since you can't index a set
 		if(startState != null && finalStates != null){
 			if(finalStates.contains(startState))
-				retVal.addAll(finalStates);
+				for(int i=0;i<finalStates.size(); i++){
+					retVal.add(finalStates.get(i));
+				}
 			else{
-				retVal.addAll(finalStates);
+				for(int i=0;i<finalStates.size(); i++){
+					retVal.add(finalStates.get(i));
+				}
 				retVal.add(startState);
 			}
 		} 
@@ -81,7 +85,7 @@ public class DFA implements DFAInterface {
 
 	@Override
 	public Set<DFAState> getFinalStates() {
-		TreeSet<DFAState> retVal = new TreeSet<DFAState>(this.finalStates);
+		HashSet<DFAState> retVal = new HashSet<DFAState>(this.finalStates);
 		return retVal;
 	}
 
