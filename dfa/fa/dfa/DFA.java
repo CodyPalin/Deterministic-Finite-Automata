@@ -2,6 +2,7 @@ package fa.dfa;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import fa.State;
@@ -11,6 +12,7 @@ public class DFA implements DFAInterface {
 	private ArrayList<DFAState> finalStates = new ArrayList<DFAState>();
 	private ArrayList<DFAState> states = new ArrayList<DFAState>(); // non initial, non final states
 	private Set<Character> alphabet = new HashSet<Character>();
+	private ArrayList<Character> alphabetlist = new ArrayList<Character>();
 	
 	@Override
 	public void addStartState(String name) {
@@ -58,12 +60,13 @@ public class DFA implements DFAInterface {
 	public void addTransition(String fromState, char onSymb, String toState) 
 	{
 		alphabet.add(onSymb);
+		alphabetlist.add(onSymb);
 		findState(fromState).addTransition(onSymb, findState(toState));
 	}
 
 	@Override
 	public Set<DFAState> getStates() {
-		HashSet<DFAState> retVal = new HashSet<DFAState>(this.states);	 //TODO Better way to do this would be to change this.states to a set; but that messes with findState(), since you can't index a set
+		HashSet<DFAState> retVal = new HashSet<DFAState>(this.states);
 		if(startState != null && finalStates != null){
 			if(finalStates.contains(startState))
 				for(int i=0;i<finalStates.size(); i++){
@@ -122,15 +125,38 @@ public class DFA implements DFAInterface {
 			return from.doTransition(onSymb);
 		return null;
 	}
-	
+	private String delta(){
+		String retVal = "\n";
+		retVal+="\t";
+		for(int i=0;i<alphabetlist.size(); i++)
+		{
+			
+			retVal+= "\t"+ alphabetlist.get(i);
+		}
+		retVal+="\n";
+		Iterator<DFAState> itr = getStates().iterator();
+		while(itr.hasNext()){
+			DFAState state = itr.next();
+			retVal+="\t";
+			retVal+=state.getName();
+			for(int i=0;i<alphabetlist.size(); i++)
+			{
+				retVal+= "\t" + state.doTransition(alphabetlist.get(i));
+			}
+			retVal+="\n";
+		}
+		
+		return retVal;
+		
+	}
 	@Override
 	public String toString(){
 		String retVal = new String();
 		System.out.println("Q = " + getStates()); //set of all states
 		System.out.println("Sigma = " + getABC()); //Alphabet
-		System.out.println("Delta = " + ""); //Transition functions TODO: How to do this?
+		System.out.println("Delta = " + delta()); //Transition functions 
 		System.out.println("q0 = " + startState.toString()); //startState 
-		System.out.println("F = " + finalStates.toString());//final states TODO
+		System.out.println("F = " + finalStates.toString());//final states
 		
 		return retVal;
 	}
